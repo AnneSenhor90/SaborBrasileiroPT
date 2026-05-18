@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SaborBrasileiroPT">
         <activity
+            android:name=".AdicionarRestauranteActivity"
+            android:exported="false" />
+        <activity
             android:name=".RegistoActivity"
             android:exported="false" />
         <activity
