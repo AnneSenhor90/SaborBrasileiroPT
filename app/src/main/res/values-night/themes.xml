@@ -1,7 +1,13 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
     <style name="Base.Theme.SaborBrasileiroPT" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="colorPrimary">@color/sabor_green</item>
+        <item name="colorPrimaryVariant">@color/sabor_green_dark</item>
+        <item name="colorSecondary">@color/sabor_gold</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorOnSecondary">@color/sabor_black_soft</item>
+        <item name="android:fontFamily">sans</item>
+        <item name="android:windowBackground">@color/sabor_cream</item>
+        <item name="android:statusBarColor">@color/sabor_green_dark</item>
+        <item name="android:navigationBarColor">@color/sabor_cream</item>
     </style>
 </resources>

@@ -10,6 +10,7 @@
         android:id="@+id/etNomeRegisto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minHeight="48dp"
         android:hint="Nome Completo"
         android:inputType="textPersonName" />
 
@@ -17,6 +18,7 @@
         android:id="@+id/etEmailRegisto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minHeight="48dp"
         android:hint="E-mail"
         android:inputType="textEmailAddress"
         android:layout_marginTop="12dp" />
@@ -25,6 +27,7 @@
         android:id="@+id/etSenhaRegisto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minHeight="48dp"
         android:hint="Senha (mínimo 6 caracteres)"
         android:inputType="textPassword"
         android:layout_marginTop="12dp" />

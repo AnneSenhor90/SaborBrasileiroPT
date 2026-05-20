@@ -1,6 +1,10 @@
 plugins {
     alias(libs.plugins.android.application)
-}
+        //Firebase
+        //id("com.android.application")
+        // Add the Google services Gradle plugin
+        id("com.google.gms.google-services")
+    }
 
 android {
     namespace = "pt.saborbrasileiro.app"
@@ -36,6 +40,7 @@ android {
 }
 
 dependencies {
+    // Dependências base do Android (Mantidas as suas referências do libs)
     implementation(libs.androidx.activity.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.constraintlayout)
@@ -45,13 +50,20 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.junit)
 
-    // Firebase BoM (Bill of Materials) para alinhar as versões
-    implementation(platform("com.google.firebase:firebase-bom:33.1.0"))
-    // Serviços do Firebase que o projeto vai usar
-    implementation("com.google.firebase:firebase-auth-ktx")
-    implementation("com.google.firebase:firebase-firestore-ktx")
-    implementation("com.google.firebase:firebase-storage-ktx")
     // Navegação entre Telas (Jetpack Navigation Component)
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
+
+    // --- CONFIGURAÇÃO DO FIREBASE ---
+    // Importa a BoM mais recente que definiu (v34.13.0)
+    implementation(platform("com.google.firebase:firebase-bom:34.13.0"))
+
+    // Serviços do Firebase atualizados e sem versões manuais (geridos pela BoM)
+    implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-auth")
+    implementation("com.google.firebase:firebase-firestore")
+    implementation("com.google.firebase:firebase-storage")
+
+    // Carregamento de imagens dos restaurantes por URL
+    implementation("com.github.bumptech.glide:glide:4.16.0")
 }

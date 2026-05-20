@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="pt.saborbrasileiro.app" />
+                  <option name="mobileSdkAppId" value="1:441141120754:android:0aab65823fb14c5cb88a6b" />
+                  <option name="projectId" value="sabor-brasileiro-pt" />
+                  <option name="projectNumber" value="441141120754" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

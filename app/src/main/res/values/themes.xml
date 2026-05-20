@@ -1,9 +1,33 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
     <style name="Base.Theme.SaborBrasileiroPT" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/sabor_green</item>
+        <item name="colorPrimaryVariant">@color/sabor_green_dark</item>
+        <item name="colorSecondary">@color/sabor_gold</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorOnSecondary">@color/sabor_black_soft</item>
+        <item name="android:fontFamily">sans</item>
+        <item name="android:windowBackground">@color/sabor_cream</item>
+        <item name="android:statusBarColor">@color/sabor_green_dark</item>
+        <item name="android:navigationBarColor">@color/sabor_cream</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
     </style>
 
     <style name="Theme.SaborBrasileiroPT" parent="Base.Theme.SaborBrasileiroPT" />
+
+    <style name="SaborChip">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">38dp</item>
+        <item name="android:layout_marginEnd">10dp</item>
+        <item name="android:background">@drawable/bg_chip</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:gravity">center</item>
+        <item name="android:minWidth">74dp</item>
+        <item name="android:textColor">@color/sabor_black_soft</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="SaborChipSelected" parent="SaborChip">
+        <item name="android:background">@drawable/bg_chip_selected</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
 </resources>

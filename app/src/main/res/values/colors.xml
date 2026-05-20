@@ -2,4 +2,17 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="sabor_green">#1F6B4F</color>
+    <color name="sabor_green_dark">#0E4F38</color>
+    <color name="sabor_gold">#F4B400</color>
+    <color name="sabor_cream">#FFF8EE</color>
+    <color name="sabor_coffee">#5C3A21</color>
+    <color name="sabor_black_soft">#1E1E1E</color>
+    <color name="sabor_text_muted">#6D6257</color>
+    <color name="sabor_card_stroke">#EFE3D4</color>
+
+    <color name="rating_excellent">#34A853</color>
+    <color name="rating_medium">#FBBC05</color>
+    <color name="rating_weak">#EA4335</color>
 </resources>
