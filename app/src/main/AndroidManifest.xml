@@ -32,6 +32,18 @@
             android:exported="false" />
 
         <activity
+            android:name=".AvaliarRestauranteActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".PerfilActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".AdminMasterActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".RegistoActivity"
             android:exported="true" />
 

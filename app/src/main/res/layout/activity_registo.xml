@@ -1,41 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="24dp"
-    android:gravity="center">
+    android:background="@color/sabor_cream"
+    android:fitsSystemWindows="true"
+    android:fillViewport="true">
 
-    <EditText
-        android:id="@+id/etNomeRegisto"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="48dp"
-        android:hint="Nome Completo"
-        android:inputType="textPersonName" />
+        android:orientation="vertical"
+        android:padding="24dp">
 
-    <EditText
-        android:id="@+id/etEmailRegisto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="48dp"
-        android:hint="E-mail"
-        android:inputType="textEmailAddress"
-        android:layout_marginTop="12dp" />
+        <ImageButton
+            android:id="@+id/btnVoltar"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_arrow_back"
+            android:contentDescription="Voltar"
+            android:layout_gravity="start"
+            android:layout_marginBottom="8dp" />
 
-    <EditText
-        android:id="@+id/etSenhaRegisto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="48dp"
-        android:hint="Senha (mínimo 6 caracteres)"
-        android:inputType="textPassword"
-        android:layout_marginTop="12dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center">
 
-    <Button
-        android:id="@+id/btnSubmeterRegisto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Criar Conta"
-        android:layout_marginTop="24dp" />
-</LinearLayout>
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginBottom="16dp"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_sabor_pin_fork" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:text="Criar Nova Conta"
+                android:textColor="@color/sabor_green"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="20dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_screen_card"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <EditText
+                    android:id="@+id/etNomeRegisto"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/bg_search_field"
+                    android:hint="Nome Completo"
+                    android:inputType="textPersonName"
+                    android:paddingHorizontal="14dp"
+                    android:textColor="@color/sabor_black_soft"
+                    android:textColorHint="@color/sabor_text_muted" />
+
+                <EditText
+                    android:id="@+id/etEmailRegisto"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/bg_search_field"
+                    android:hint="E-mail"
+                    android:inputType="textEmailAddress"
+                    android:paddingHorizontal="14dp"
+                    android:textColor="@color/sabor_black_soft"
+                    android:textColorHint="@color/sabor_text_muted" />
+
+                <EditText
+                    android:id="@+id/etSenhaRegisto"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/bg_search_field"
+                    android:hint="Senha (mínimo 6 caracteres)"
+                    android:inputType="textPassword"
+                    android:paddingHorizontal="14dp"
+                    android:textColor="@color/sabor_black_soft"
+                    android:textColorHint="@color/sabor_text_muted" />
+
+                <RadioGroup
+                    android:id="@+id/rgTipoConta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:orientation="vertical">
+
+                    <RadioButton
+                        android:id="@+id/rbUtilizador"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="Sou utilizador"
+                        android:textColor="@color/sabor_black_soft" />
+
+                    <RadioButton
+                        android:id="@+id/rbAdminRestaurante"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Sou restaurante / parceiro"
+                        android:textColor="@color/sabor_black_soft" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnSubmeterRegisto"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/bg_primary_button"
+                android:fontFamily="sans-serif-medium"
+                android:text="Criar Conta"
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

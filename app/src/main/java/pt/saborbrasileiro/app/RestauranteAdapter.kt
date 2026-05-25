@@ -12,7 +12,10 @@ import com.bumptech.glide.Glide
 import java.util.Locale
 
 // O Adapter recebe a lista de restaurantes que vamos puxar do Firestore
-class RestauranteAdapter(private val listaRestaurantes: List<Restaurante>) :
+class RestauranteAdapter(
+    private val listaRestaurantes: List<Restaurante>,
+    private val aoClicarAvaliar: (Restaurante) -> Unit
+) :
     RecyclerView.Adapter<RestauranteAdapter.RestauranteViewHolder>() {
 
     // 1. Este método cria o "molde" visual de cada linha da lista (infla o XML)
@@ -34,7 +37,7 @@ class RestauranteAdapter(private val listaRestaurantes: List<Restaurante>) :
 
         val avaliacao = restaurante.avaliacaoMedia
         holder.tvAvaliacao.text = if (avaliacao > 0.0) {
-            String.format(Locale("pt", "PT"), "%.1f", avaliacao)
+            String.format(Locale.forLanguageTag("pt-PT"), "%.1f", avaliacao)
         } else {
             "Novo"
         }
@@ -57,12 +60,20 @@ class RestauranteAdapter(private val listaRestaurantes: List<Restaurante>) :
             "Perto de si"
         }
 
-        Glide.with(context)
-            .load(restaurante.imagemUrl.takeIf { it.isNotBlank() })
-            .placeholder(R.drawable.bg_food_placeholder)
-            .error(R.drawable.ic_sabor_pin_fork)
-            .centerCrop()
-            .into(holder.ivRestaurante)
+        if (restaurante.nome.contains("Maria Pitanga", ignoreCase = true)) {
+            holder.ivRestaurante.setImageResource(R.drawable.logo_maria_pitanga)
+        } else {
+            Glide.with(context)
+                .load(restaurante.imagemUrl.takeIf { it.isNotBlank() })
+                .placeholder(R.drawable.bg_food_placeholder)
+                .error(R.drawable.ic_sabor_pin_fork)
+                .centerCrop()
+                .into(holder.ivRestaurante)
+        }
+
+        holder.btnAvaliar.setOnClickListener {
+            aoClicarAvaliar(restaurante)
+        }
     }
 
     // 3. Diz ao Android quantos itens a nossa lista tem no total
@@ -73,6 +84,7 @@ class RestauranteAdapter(private val listaRestaurantes: List<Restaurante>) :
     // A classe ViewHolder "encontra" os IDs do XML de cada linha para podermos usar acima
     class RestauranteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val ivRestaurante: ImageView = itemView.findViewById(R.id.ivRestauranteItem)
+        val btnAvaliar: View = itemView.findViewById(R.id.btnAvaliarItem)
         val tvNome: TextView = itemView.findViewById(R.id.tvNomeItem)
         val tvCidade: TextView = itemView.findViewById(R.id.tvCidadeItem)
         val tvCategoria: TextView = itemView.findViewById(R.id.tvCategoriaItem)

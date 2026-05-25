@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="8dp"
+    android:layout_marginHorizontal="6dp"
     android:layout_marginVertical="7dp"
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="16dp"
@@ -14,19 +14,21 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="136dp"
         android:padding="12dp">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/imageContainer"
-            android:layout_width="116dp"
-            android:layout_height="116dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             app:cardBackgroundColor="@color/sabor_cream"
             app:cardCornerRadius="14dp"
             app:cardElevation="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_max="116dp"
+            app:layout_constraintWidth_min="92dp"
+            app:layout_constraintWidth_percent="0.30">
 
             <ImageView
                 android:id="@+id/ivRestauranteItem"
@@ -40,8 +42,8 @@
 
         <ImageButton
             android:id="@+id/btnFavoritoItem"
-            android:layout_width="42dp"
-            android:layout_height="42dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="Adicionar aos favoritos"
             android:padding="9dp"
@@ -54,70 +56,59 @@
             android:id="@+id/tvNomeItem"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="14dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="6dp"
             android:ellipsize="end"
             android:fontFamily="sans-serif-medium"
-            android:maxLines="1"
+            android:maxLines="2"
             android:text="Nome do Restaurante"
             android:textColor="@color/sabor_black_soft"
-            android:textSize="17sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@id/btnFavoritoItem"
             app:layout_constraintStart_toEndOf="@id/imageContainer"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
-            android:id="@+id/locationRow"
+        <TextView
+            android:id="@+id/tvCategoriaItem"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="14dp"
+            android:layout_marginStart="12dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="8dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toStartOf="@id/btnFavoritoItem"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif"
+            android:maxLines="1"
+            android:text="Categoria"
+            android:textColor="@color/sabor_coffee"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/imageContainer"
-            app:layout_constraintTop_toBottomOf="@id/tvNomeItem">
+            app:layout_constraintTop_toBottomOf="@id/tvNomeItem" />
 
-            <TextView
-                android:id="@+id/tvCategoriaItem"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:fontFamily="sans-serif"
-                android:maxLines="1"
-                android:text="Categoria"
-                android:textColor="@color/sabor_coffee"
-                android:textSize="13sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="6dp"
-                android:text="•"
-                android:textColor="@color/sabor_text_muted"
-                android:textSize="13sp" />
-
-            <TextView
-                android:id="@+id/tvCidadeItem"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ellipsize="end"
-                android:fontFamily="sans-serif"
-                android:maxLines="1"
-                android:text="Cidade"
-                android:textColor="@color/sabor_text_muted"
-                android:textSize="13sp" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/tvCidadeItem"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="8dp"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif"
+            android:maxLines="1"
+            android:text="Cidade"
+            android:textColor="@color/sabor_text_muted"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imageContainer"
+            app:layout_constraintTop_toBottomOf="@id/tvCategoriaItem" />
 
         <TextView
             android:id="@+id/tvDescricaoItem"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="14dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="7dp"
             android:layout_marginEnd="8dp"
             android:ellipsize="end"
             android:fontFamily="sans-serif"
@@ -127,20 +118,18 @@
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/imageContainer"
-            app:layout_constraintTop_toBottomOf="@id/locationRow" />
+            app:layout_constraintTop_toBottomOf="@id/tvCidadeItem" />
 
         <LinearLayout
             android:id="@+id/ratingRow"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="14dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginTop="12dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/imageContainer"
-            app:layout_constraintTop_toBottomOf="@id/tvDescricaoItem">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imageContainer">
 
             <ImageView
                 android:layout_width="17dp"
@@ -165,20 +154,55 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_weight="1"
+                android:ellipsize="end"
                 android:fontFamily="sans-serif"
-                android:text="600 m"
+                android:maxLines="1"
+                android:text="Perto de si"
                 android:textColor="@color/sabor_text_muted"
                 android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/actionRow"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ratingRow">
 
             <TextView
                 android:id="@+id/tvRatingStatus"
-                android:layout_width="wrap_content"
-                android:layout_height="28dp"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
                 android:background="@drawable/bg_rating_pill"
+                android:ellipsize="end"
                 android:fontFamily="sans-serif-medium"
                 android:gravity="center"
-                android:minWidth="78dp"
+                android:maxLines="1"
+                android:minWidth="76dp"
                 android:text="Excelente"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/btnAvaliarItem"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_chip_selected"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:maxLines="1"
+                android:minWidth="76dp"
+                android:text="Avaliar"
                 android:textColor="@color/white"
                 android:textSize="12sp" />
         </LinearLayout>

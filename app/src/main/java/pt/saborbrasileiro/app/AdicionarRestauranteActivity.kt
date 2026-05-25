@@ -5,51 +5,59 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.Date
 
 class AdicionarRestauranteActivity : AppCompatActivity() {
 
-    // Criamos a variável que vai gerir a ligação com a base de dados Firestore
     private lateinit var db: FirebaseFirestore
+    private lateinit var auth: FirebaseAuth
+    private var tipoAcessoAtual: String = TiposAcesso.UTILIZADOR
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_adicionar_restaurante)
 
-        // Inicializamos a instância do Firestore
+        findViewById<android.widget.ImageButton>(R.id.btnVoltar).setOnClickListener {
+            finish()
+        }
+
         db = FirebaseFirestore.getInstance()
+        auth = FirebaseAuth.getInstance()
 
-        // Mapeamos o botão do layout XML para o nosso código Kotlin
+        carregarTipoAcesso()
+
         val btnSalvar = findViewById<Button>(R.id.btnSalvarRestaurante)
-
-        // Configuramos o clique do botão
         btnSalvar.setOnClickListener {
             executarEnvioFirestore()
         }
-    } // Aqui fecha apenas o onCreate
+    }
 
     private fun executarEnvioFirestore() {
-        // 1. Capturamos os textos digitados nas caixas
+        val utilizadorAtual = auth.currentUser
+        if (utilizadorAtual == null) {
+            Toast.makeText(this, "Entre na sua conta para cadastrar um restaurante.", Toast.LENGTH_LONG).show()
+            return
+        }
+
         val nome = findViewById<EditText>(R.id.etNomeRestaurante).text.toString().trim()
         val cidade = findViewById<EditText>(R.id.etCidadeRestaurante).text.toString().trim()
         val categoria = findViewById<EditText>(R.id.etCategoriaRestaurante).text.toString().trim()
         val urlFoto = findViewById<EditText>(R.id.etLinkImagem).text.toString().trim()
         val descricao = findViewById<EditText>(R.id.etDescricaoRestaurante).text.toString().trim()
 
-        // 2. Validação de segurança
         if (nome.isEmpty() || cidade.isEmpty()) {
-            Toast.makeText(this, "Por favor, preencha o Nome e a Cidade!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Por favor, preencha o nome e a cidade.", Toast.LENGTH_SHORT).show()
             return
         }
 
-        // 3. Pedimos ao Firestore para gerar um documento vazio e criar um ID único
-        val documentoReferencia = db.collection("restaurantes").document()
-        val idGerado = documentoReferencia.id
+        val publicarDireto = tipoAcessoAtual == TiposAcesso.ADMIN_MASTER
+        val colecaoDestino = if (publicarDireto) "restaurantes" else "restaurantes_pendentes"
+        val documentoReferencia = db.collection(colecaoDestino).document()
 
-        // 4. Montamos o objeto utilizando o modelo "Restaurante"
         val novoRestaurante = Restaurante(
-            id = idGerado,
+            id = documentoReferencia.id,
             nome = nome,
             cidade = cidade,
             categoria = categoria,
@@ -59,17 +67,34 @@ class AdicionarRestauranteActivity : AppCompatActivity() {
             latitude = 0.0,
             longitude = 0.0,
             contacto = "",
+            estado = if (publicarDireto) "aprovado" else "pendente",
+            criadoPorUid = utilizadorAtual.uid,
+            criadoPorTipo = tipoAcessoAtual,
+            aprovadoPorUid = if (publicarDireto) utilizadorAtual.uid else "",
+            dataAprovacao = if (publicarDireto) Date() else null,
             dataCriacao = Date()
         )
 
-        // 5. Enviamos os dados para a nuvem
         documentoReferencia.set(novoRestaurante)
             .addOnSuccessListener {
-                Toast.makeText(this, "Restaurante guardado com sucesso!", Toast.LENGTH_SHORT).show()
+                val mensagem = if (publicarDireto) {
+                    "Restaurante publicado com sucesso!"
+                } else {
+                    "Restaurante enviado para aprovação do administrador."
+                }
+                Toast.makeText(this, mensagem, Toast.LENGTH_LONG).show()
                 finish()
             }
             .addOnFailureListener { erro ->
                 Toast.makeText(this, "Erro ao gravar: ${erro.message}", Toast.LENGTH_LONG).show()
             }
-    } // Aqui fecha a função executarEnvioFirestore
-} // Aqui fecha a classe AdicionarRestauranteActivity (ÚLTIMA CHAVE DO ARQUIVO)
+    }
+
+    private fun carregarTipoAcesso() {
+        val uid = auth.currentUser?.uid ?: return
+        db.collection("utilizadores").document(uid).get()
+            .addOnSuccessListener { documento ->
+                tipoAcessoAtual = documento.getString("tipoAcesso") ?: TiposAcesso.UTILIZADOR
+            }
+    }
+}

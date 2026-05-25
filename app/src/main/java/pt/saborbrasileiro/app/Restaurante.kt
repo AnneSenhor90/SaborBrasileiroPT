@@ -13,5 +13,14 @@ data class Restaurante(
     val latitude: Double = 0.0,
     val longitude: Double = 0.0,
     val contacto: String = "",
+    val morada: String = "",
+    val fontePesquisa: String = "",
+    val fonteUrl: String = "",
+    val criadoPorSeed: Boolean = false,
+    val estado: String = "aprovado",
+    val criadoPorUid: String = "",
+    val criadoPorTipo: String = "",
+    val aprovadoPorUid: String = "",
+    val dataAprovacao: Date? = null,
     val dataCriacao: Date = Date()
 )

@@ -1,56 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rootHome"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/sabor_cream">
+    android:background="@color/sabor_cream"
+    android:fitsSystemWindows="true">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/headerHome"
         android:layout_width="0dp"
-        android:layout_height="232dp"
+        android:layout_height="0dp"
         android:background="@drawable/bg_header_gradient"
-        android:clipToPadding="false"
-        android:orientation="vertical"
-        android:paddingStart="24dp"
-        android:paddingTop="28dp"
-        android:paddingEnd="24dp"
+        android:minHeight="184dp"
+        android:paddingStart="20dp"
+        android:paddingTop="18dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="34dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_max="220dp"
+        app:layout_constraintHeight_percent="0.24"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:layout_width="58dp"
-            android:layout_height="58dp"
+            android:id="@+id/logoHome"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
             android:contentDescription="@string/app_name"
-            android:src="@drawable/ic_sabor_pin_fork" />
+            android:src="@drawable/ic_sabor_pin_fork"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/btnPerfil"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Perfil do utilizador"
+            android:padding="10dp"
+            android:src="@drawable/ic_profile"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/logoHome"
+            app:tint="@color/white" />
 
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/tvHeaderIntro"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="18dp"
             android:fontFamily="sans-serif"
             android:text="Descubra os melhores"
             android:textColor="@color/white"
-            android:textSize="16sp" />
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/logoHome" />
 
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/tvHeaderTitle"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
             android:lineSpacingExtra="2dp"
+            android:maxLines="2"
             android:text="Restaurantes Brasileiros\nem Portugal"
             android:textColor="@color/white"
-            android:textSize="27sp"
-            android:textStyle="bold" />
-    </LinearLayout>
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:autoSizeMaxTextSize="25sp"
+            app:autoSizeMinTextSize="20sp"
+            app:autoSizeStepGranularity="1sp"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvHeaderIntro" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
         android:id="@+id/searchBox"
         android:layout_width="0dp"
-        android:layout_height="58dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:background="@drawable/bg_search_field"
         android:elevation="8dp"
         android:gravity="center_vertical"
@@ -66,35 +98,45 @@
             android:contentDescription="@null"
             android:src="@drawable/ic_search" />
 
-        <TextView
+        <EditText
+            android:id="@+id/etBuscarRestaurante"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="14dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="12dp"
             android:layout_weight="1"
+            android:background="@android:color/transparent"
             android:fontFamily="sans-serif"
-            android:text="Buscar restaurantes..."
+            android:gravity="center_vertical"
+            android:hint="Buscar restaurantes..."
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:maxLines="1"
+            android:padding="0dp"
+            android:singleLine="true"
             android:textColor="@color/sabor_text_muted"
+            android:textColorHint="@color/sabor_text_muted"
             android:textSize="15sp" />
 
         <TextView
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:id="@+id/btnLimparBusca"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:gravity="center"
-            android:text="≡"
+            android:text="X"
             android:textColor="@color/sabor_green"
-            android:textSize="24sp"
+            android:textSize="15sp"
             android:textStyle="bold" />
     </LinearLayout>
 
     <HorizontalScrollView
         android:id="@+id/categoryScroll"
         android:layout_width="0dp"
-        android:layout_height="56dp"
-        android:layout_marginTop="38dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="34dp"
         android:clipToPadding="false"
         android:overScrollMode="never"
-        android:paddingStart="24dp"
-        android:paddingEnd="24dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
         android:scrollbars="none"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -107,26 +149,32 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/chipTodos"
                 style="@style/SaborChipSelected"
                 android:text="Todos" />
 
             <TextView
+                android:id="@+id/chipChurrasco"
                 style="@style/SaborChip"
                 android:text="Churrasco" />
 
             <TextView
+                android:id="@+id/chipFeijoada"
                 style="@style/SaborChip"
                 android:text="Feijoada" />
 
             <TextView
+                android:id="@+id/chipLanches"
                 style="@style/SaborChip"
                 android:text="Lanches" />
 
             <TextView
+                android:id="@+id/chipDoces"
                 style="@style/SaborChip"
                 android:text="Doces" />
 
             <TextView
+                android:id="@+id/chipBebidas"
                 style="@style/SaborChip"
                 android:text="Bebidas" />
         </LinearLayout>
@@ -136,9 +184,9 @@
         android:id="@+id/tvSectionTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="20dp"
         android:fontFamily="sans-serif-medium"
         android:text="Mais bem avaliados"
         android:textColor="@color/sabor_black_soft"
@@ -153,11 +201,11 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:clipToPadding="false"
-        android:paddingStart="16dp"
-        android:paddingTop="10dp"
-        android:paddingEnd="16dp"
-        android:paddingBottom="104dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:paddingStart="12dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="12dp"
+        android:paddingBottom="96dp"
+        app:layout_constraintBottom_toTopOf="@id/btnIrAdicionar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvSectionTitle" />
@@ -166,9 +214,10 @@
         android:id="@+id/btnIrAdicionar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="16dp"
         android:fontFamily="sans-serif-medium"
+        android:minHeight="52dp"
         android:text="Adicionar"
         android:textColor="@color/sabor_black_soft"
         app:backgroundTint="@color/sabor_gold"

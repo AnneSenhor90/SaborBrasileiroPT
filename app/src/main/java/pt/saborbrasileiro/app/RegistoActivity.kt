@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -21,15 +22,25 @@ class RegistoActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
 
+        findViewById<android.widget.ImageButton>(R.id.btnVoltar).setOnClickListener {
+            finish()
+        }
+
         val etNome = findViewById<EditText>(R.id.etNomeRegisto)
         val etEmail = findViewById<EditText>(R.id.etEmailRegisto)
         val etSenha = findViewById<EditText>(R.id.etSenhaRegisto)
+        val rbAdminRestaurante = findViewById<RadioButton>(R.id.rbAdminRestaurante)
         val btnSubmeter = findViewById<Button>(R.id.btnSubmeterRegisto)
 
         btnSubmeter.setOnClickListener {
             val nome = etNome.text.toString().trim()
             val email = etEmail.text.toString().trim()
             val senha = etSenha.text.toString().trim()
+            val tipoEscolhido = if (rbAdminRestaurante.isChecked) {
+                TiposAcesso.ADMIN_RESTAURANTE
+            } else {
+                TiposAcesso.UTILIZADOR
+            }
 
             if (nome.isEmpty() || email.isEmpty() || senha.isEmpty()) {
                 Toast.makeText(this, "Preencha todos os campos", Toast.LENGTH_SHORT).show()
@@ -52,6 +63,7 @@ class RegistoActivity : AppCompatActivity() {
                             id = uid,
                             nome = nome,
                             email = email,
+                            tipoAcesso = TiposAcesso.tipoParaEmail(email, tipoEscolhido),
                             favoritos = emptyList()
                         )
 
