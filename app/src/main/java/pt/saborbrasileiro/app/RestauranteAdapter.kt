@@ -60,16 +60,17 @@ class RestauranteAdapter(
             "Perto de si"
         }
 
-        if (restaurante.nome.contains("Maria Pitanga", ignoreCase = true)) {
-            holder.ivRestaurante.setImageResource(R.drawable.logo_maria_pitanga)
+        val erroImagem = if (restaurante.nome.contains("Maria Pitanga", ignoreCase = true)) {
+            R.drawable.logo_maria_pitanga
         } else {
-            Glide.with(context)
-                .load(restaurante.imagemUrl.takeIf { it.isNotBlank() })
-                .placeholder(R.drawable.bg_food_placeholder)
-                .error(R.drawable.ic_sabor_pin_fork)
-                .centerCrop()
-                .into(holder.ivRestaurante)
+            R.drawable.ic_sabor_pin_fork
         }
+        Glide.with(context)
+            .load(restaurante.imagemUrl.takeIf { it.isNotBlank() })
+            .placeholder(R.drawable.bg_food_placeholder)
+            .error(erroImagem)
+            .centerCrop()
+            .into(holder.ivRestaurante)
 
         holder.btnAvaliar.setOnClickListener {
             aoClicarAvaliar(restaurante)

@@ -16,7 +16,7 @@
 
         <activity
             android:name=".MainActivity"
-            android:exported="true" />
+            android:exported="false" />
 
         <activity
             android:name=".LoginActivity"
@@ -45,7 +45,7 @@
 
         <activity
             android:name=".RegistoActivity"
-            android:exported="true" />
+            android:exported="false" />
 
     </application>
 </manifest>

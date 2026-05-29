@@ -109,6 +109,23 @@
                         android:text="Sou restaurante / parceiro"
                         android:textColor="@color/sabor_black_soft" />
                 </RadioGroup>
+
+                <CheckBox
+                    android:id="@+id/cbRgpdRegisto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:text="Li e aceito o tratamento dos meus dados conforme o RGPD para criar conta, gerir avaliações, prémios e comunicações do app."
+                    android:textColor="@color/sabor_black_soft"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Pode retirar o consentimento e pedir acesso, retificação ou apagamento dos dados através do perfil."
+                    android:textColor="@color/sabor_text_muted"
+                    android:textSize="12sp" />
             </LinearLayout>
 
             <Button

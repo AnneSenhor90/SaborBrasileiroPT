@@ -147,7 +147,7 @@ class AvaliarRestauranteActivity : AppCompatActivity() {
         nota: Double,
         comentario: String
     ) {
-        val documento = db.collection("avaliacoes").document()
+        val documento = db.collection("avaliacoes_pendentes").document()
         val avaliacao = Avaliacao(
             id = documento.id,
             restauranteId = restauranteId,
@@ -157,16 +157,15 @@ class AvaliarRestauranteActivity : AppCompatActivity() {
             emailUtilizador = emailUtilizador,
             nota = nota,
             comentario = comentario,
-            estado = "aprovado",
+            estado = "pendente",
             data = Date()
         )
 
         documento.set(avaliacao)
             .addOnSuccessListener {
-                Toast.makeText(this, "Obrigado pelo seu relato!", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Obrigado. O seu relato ficou pendente de verificação.", Toast.LENGTH_LONG).show()
                 findViewById<EditText>(R.id.etComentarioAvaliacao).text.clear()
                 findViewById<RatingBar>(R.id.ratingRestaurante).rating = 5.0f
-                atualizarMediaRestaurante(restauranteId)
             }
             .addOnFailureListener { erro ->
                 Toast.makeText(this, "Erro ao enviar relato: ${erro.message}", Toast.LENGTH_LONG).show()
@@ -214,7 +213,7 @@ class AvaliarRestauranteActivity : AppCompatActivity() {
             holder.rating.rating = item.nota.toFloat()
             holder.tvTexto.text = item.comentario
 
-            val df = SimpleDateFormat("dd 'de' MMMM 'de' yyyy", Locale("pt", "PT"))
+            val df = SimpleDateFormat("dd 'de' MMMM 'de' yyyy", Locale.forLanguageTag("pt-PT"))
             holder.tvData.text = df.format(item.data)
         }
 

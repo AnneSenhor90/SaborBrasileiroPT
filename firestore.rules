@@ -1,0 +1,137 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function userDoc() {
+      return get(/databases/$(database)/documents/utilizadores/$(request.auth.uid));
+    }
+
+    function role() {
+      return signedIn() && userDoc().data.tipoAcesso != null
+        ? userDoc().data.tipoAcesso
+        : "utilizador";
+    }
+
+    function isMaster() {
+      return signedIn() && role() == "admin_master";
+    }
+
+    function isAdminRestaurante() {
+      return signedIn() && (role() == "admin_restaurante" || role() == "admin_master");
+    }
+
+    function authEmail() {
+      return request.auth.token.email.lower();
+    }
+
+    function isInitialMasterEmail() {
+      return authEmail() == "anne.kelly.senhor@gmail.com";
+    }
+
+    function isListedMasterEmail() {
+      return signedIn()
+        && exists(/databases/$(database)/documents/admin_masters/$(authEmail()));
+    }
+
+    function canClaimMasterRole() {
+      return request.resource.data.tipoAcesso == "admin_master"
+        && (isInitialMasterEmail() || isListedMasterEmail());
+    }
+
+    function validUserCreateRole() {
+      return !request.resource.data.keys().hasAny(["tipoAcesso"])
+        || request.resource.data.tipoAcesso in ["utilizador", "admin_restaurante"]
+        || canClaimMasterRole();
+    }
+
+    function validUserUpdateRole() {
+      return !request.resource.data.diff(resource.data).affectedKeys().hasAny(["tipoAcesso"])
+        || canClaimMasterRole();
+    }
+
+    function premioDoc(premioId) {
+      return get(/databases/$(database)/documents/premios/$(premioId));
+    }
+
+    match /utilizadores/{uid} {
+      allow read: if signedIn() && (request.auth.uid == uid || isMaster());
+      allow create: if signedIn() && request.auth.uid == uid && validUserCreateRole();
+      allow update: if (signedIn() && request.auth.uid == uid
+        && validUserUpdateRole())
+        || isMaster();
+      allow delete: if isMaster();
+    }
+
+    match /admin_masters/{email} {
+      allow get: if isMaster() || (signedIn() && email == authEmail());
+      allow list, create, update, delete: if isMaster();
+    }
+
+    match /restaurantes/{id} {
+      allow read: if true;
+      allow create, update, delete: if isMaster();
+    }
+
+    match /restaurantes_pendentes/{id} {
+      allow read: if isMaster();
+      allow create: if signedIn()
+        && request.resource.data.criadoPorUid == request.auth.uid
+        && request.resource.data.estado == "pendente";
+      allow update, delete: if isMaster();
+    }
+
+    match /avaliacoes/{id} {
+      allow read: if true;
+      allow create, update, delete: if isAdminRestaurante();
+    }
+
+    match /avaliacoes_pendentes/{id} {
+      allow read: if isAdminRestaurante();
+      allow create: if signedIn()
+        && request.resource.data.utilizadorId == request.auth.uid
+        && request.resource.data.estado == "pendente";
+      allow update, delete: if isAdminRestaurante();
+    }
+
+    match /avaliacoes_reprovadas/{id} {
+      allow read, write: if isAdminRestaurante();
+    }
+
+    match /comunicacoes_master/{id} {
+      allow create: if isAdminRestaurante();
+      allow read, update, delete: if isMaster();
+    }
+
+    match /premios/{id} {
+      allow read: if true;
+      allow create: if isAdminRestaurante()
+        && (isMaster() || request.resource.data.criadoPorUid == request.auth.uid);
+      allow update, delete: if signedIn()
+        && (isMaster() || resource.data.criadoPorUid == request.auth.uid);
+    }
+
+    match /resgates_premios/{id} {
+      allow read: if signedIn()
+        && (resource.data.utilizadorId == request.auth.uid
+          || resource.data.adminUid == request.auth.uid
+          || isMaster());
+      allow create: if signedIn()
+        && request.resource.data.utilizadorId == request.auth.uid
+        && request.resource.data.usado == false
+        && premioDoc(request.resource.data.premioId).data.ativo == true
+        && premioDoc(request.resource.data.premioId).data.criadoPorUid == request.resource.data.adminUid;
+      allow update: if signedIn()
+        && (resource.data.adminUid == request.auth.uid || isMaster());
+      allow delete: if isMaster();
+    }
+
+    match /pedidos_rgpd/{id} {
+      allow create: if signedIn();
+      allow read, update, delete: if isMaster();
+    }
+  }
+}

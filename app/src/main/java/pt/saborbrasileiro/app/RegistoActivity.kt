@@ -3,12 +3,14 @@ package pt.saborbrasileiro.app
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import java.util.Date
 
 class RegistoActivity : AppCompatActivity() {
 
@@ -30,6 +32,7 @@ class RegistoActivity : AppCompatActivity() {
         val etEmail = findViewById<EditText>(R.id.etEmailRegisto)
         val etSenha = findViewById<EditText>(R.id.etSenhaRegisto)
         val rbAdminRestaurante = findViewById<RadioButton>(R.id.rbAdminRestaurante)
+        val cbRgpd = findViewById<CheckBox>(R.id.cbRgpdRegisto)
         val btnSubmeter = findViewById<Button>(R.id.btnSubmeterRegisto)
 
         btnSubmeter.setOnClickListener {
@@ -52,6 +55,11 @@ class RegistoActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            if (!cbRgpd.isChecked) {
+                Toast.makeText(this, "Para criar conta, precisa aceitar a regra RGPD de utilização dos dados.", Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
+
             // 1. Criar o utilizador no Firebase Authentication
             auth.createUserWithEmailAndPassword(email, senha)
                 .addOnCompleteListener(this) { tarefa ->
@@ -64,6 +72,9 @@ class RegistoActivity : AppCompatActivity() {
                             nome = nome,
                             email = email,
                             tipoAcesso = TiposAcesso.tipoParaEmail(email, tipoEscolhido),
+                            rgpdAceite = true,
+                            rgpdVersao = "rgpd-v1-2026-05-29",
+                            rgpdDataAceite = Date(),
                             favoritos = emptyList()
                         )
 

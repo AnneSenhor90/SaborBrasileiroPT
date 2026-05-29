@@ -12,5 +12,8 @@ data class Avaliacao(
     val nota: Double = 0.0, // Ex: 4.5
     val comentario: String = "",
     val estado: String = "pendente",
+    val motivoReprovacao: String = "",
+    val moderadoPorUid: String = "",
+    val dataModeracao: Date? = null,
     val data: Date = Date()
 )

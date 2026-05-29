@@ -3,35 +3,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/sabor_cream"
-    android:fitsSystemWindows="true"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:fitsSystemWindows="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="24dp"
-        android:paddingBottom="36dp">
+        android:padding="20dp"
+        android:paddingBottom="40dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_marginBottom="12dp">
+            android:orientation="horizontal">
 
             <ImageButton
                 android:id="@+id/btnVoltar"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:src="@drawable/ic_arrow_back"
                 android:contentDescription="Voltar"
-                android:layout_marginEnd="12dp" />
+                android:src="@drawable/ic_arrow_back" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
                 android:fontFamily="sans-serif-medium"
                 android:text="Perfil"
                 android:textColor="@color/sabor_black_soft"
@@ -42,81 +42,357 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="22dp"
+            android:layout_marginTop="16dp"
             android:background="@drawable/bg_screen_card"
             android:orientation="vertical"
-            android:padding="20dp">
+            android:padding="18dp">
 
             <ImageView
-                android:layout_width="72dp"
-                android:layout_height="72dp"
+                android:id="@+id/ivFotoPerfil"
+                android:layout_width="94dp"
+                android:layout_height="94dp"
                 android:layout_gravity="center_horizontal"
-                android:contentDescription="@string/app_name"
-                android:src="@drawable/ic_sabor_pin_fork" />
-
-            <TextView
-                android:id="@+id/tvNomePerfil"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
-                android:fontFamily="sans-serif-medium"
-                android:gravity="center"
-                android:text="Utilizador"
-                android:textColor="@color/sabor_black_soft"
-                android:textSize="22sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tvEmailPerfil"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:fontFamily="sans-serif"
-                android:gravity="center"
-                android:text="email@exemplo.com"
-                android:textColor="@color/sabor_text_muted"
-                android:textSize="15sp" />
+                android:background="@drawable/bg_food_placeholder"
+                android:contentDescription="Foto do perfil"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_profile" />
 
             <TextView
                 android:id="@+id/tvTipoAcessoPerfil"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="12dp"
                 android:fontFamily="sans-serif-medium"
                 android:gravity="center"
                 android:text="Utilizador"
                 android:textColor="@color/sabor_green"
                 android:textSize="14sp" />
 
+            <EditText
+                android:id="@+id/etFotoPerfilUrl"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_search_field"
+                android:hint="Link da foto de perfil"
+                android:inputType="textUri"
+                android:paddingHorizontal="14dp"
+                android:textColor="@color/sabor_black_soft"
+                android:textColorHint="@color/sabor_text_muted" />
+
+            <EditText
+                android:id="@+id/etNomePerfil"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_search_field"
+                android:hint="Nome completo"
+                android:inputType="textPersonName"
+                android:paddingHorizontal="14dp"
+                android:textColor="@color/sabor_black_soft"
+                android:textColorHint="@color/sabor_text_muted" />
+
+            <EditText
+                android:id="@+id/etDataNascimentoPerfil"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_search_field"
+                android:hint="Data de nascimento (dd/mm/aaaa)"
+                android:inputType="date"
+                android:paddingHorizontal="14dp"
+                android:textColor="@color/sabor_black_soft"
+                android:textColorHint="@color/sabor_text_muted" />
+
+            <EditText
+                android:id="@+id/etEmailPerfil"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_search_field"
+                android:enabled="false"
+                android:hint="E-mail"
+                android:inputType="textEmailAddress"
+                android:paddingHorizontal="14dp"
+                android:textColor="@color/sabor_black_soft"
+                android:textColorHint="@color/sabor_text_muted" />
+
+            <EditText
+                android:id="@+id/etContatoPerfil"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_search_field"
+                android:hint="Contacto"
+                android:inputType="phone"
+                android:paddingHorizontal="14dp"
+                android:textColor="@color/sabor_black_soft"
+                android:textColorHint="@color/sabor_text_muted" />
+
+            <EditText
+                android:id="@+id/etNifPerfil"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_search_field"
+                android:hint="NIF (opcional)"
+                android:inputType="number"
+                android:maxLength="9"
+                android:paddingHorizontal="14dp"
+                android:textColor="@color/sabor_black_soft"
+                android:textColorHint="@color/sabor_text_muted" />
+
+            <Button
+                android:id="@+id/btnSalvarPerfil"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_marginTop="14dp"
+                android:background="@drawable/bg_primary_button"
+                android:text="Guardar perfil"
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/btnAlterarSenha"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_outline_button"
+                android:text="Alterar senha por e-mail"
+                android:textAllCaps="false"
+                android:textColor="@color/sabor_green" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/secaoRgpd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_screen_card"
+            android:orientation="vertical"
+            android:padding="18dp">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:fontFamily="sans-serif"
-                android:gravity="center"
-                android:text="As suas avaliações ficam pendentes até serem verificadas pelo administrador."
+                android:fontFamily="sans-serif-medium"
+                android:text="RGPD e dados"
+                android:textColor="@color/sabor_black_soft"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Tratamos dados para gerir conta, avaliações, prémios, restaurantes, validações e segurança. Pode pedir acesso, retificação, limitação, oposição ou apagamento dos dados. A retirada do consentimento não afeta tratamentos anteriores."
                 android:textColor="@color/sabor_text_muted"
-                android:textSize="14sp" />
+                android:textSize="13sp" />
+
+            <CheckBox
+                android:id="@+id/cbRgpdPerfil"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Aceito a utilização dos meus dados para funcionamento do app."
+                android:textColor="@color/sabor_black_soft"
+                android:textSize="13sp" />
+
+            <Button
+                android:id="@+id/btnGuardarRgpd"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_primary_button"
+                android:text="Guardar consentimento"
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/btnSolicitarApagarDados"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_outline_button"
+                android:text="Solicitar apagamento dos dados"
+                android:textAllCaps="false"
+                android:textColor="@color/sabor_green" />
         </LinearLayout>
 
-        <Button
-            android:id="@+id/btnAlterarSenha"
+        <LinearLayout
+            android:id="@+id/secaoUtilizador"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginTop="24dp"
-            android:background="@drawable/bg_primary_button"
-            android:fontFamily="sans-serif-medium"
-            android:text="Alterar senha"
-            android:textAllCaps="false"
-            android:textColor="@color/white" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_screen_card"
+            android:orientation="vertical"
+            android:padding="18dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:text="Prémios resgatados"
+                android:textColor="@color/sabor_black_soft"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvPremiosResgatados"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:nestedScrollingEnabled="false" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/secaoAdmin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_screen_card"
+            android:orientation="vertical"
+            android:padding="18dp"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:text="Perfil do estabelecimento"
+                android:textColor="@color/sabor_black_soft"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/etNomeEstabelecimento"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_search_field"
+                android:hint="Nome completo do estabelecimento"
+                android:inputType="textCapWords"
+                android:paddingHorizontal="14dp" />
+
+            <EditText
+                android:id="@+id/etDataFundacao"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_search_field"
+                android:hint="Data de fundação"
+                android:inputType="date"
+                android:paddingHorizontal="14dp" />
+
+            <EditText
+                android:id="@+id/etNifEmpresa"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_search_field"
+                android:hint="NIF da empresa"
+                android:inputType="number"
+                android:maxLength="9"
+                android:paddingHorizontal="14dp" />
+
+            <Button
+                android:id="@+id/btnSalvarAdmin"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_marginTop="14dp"
+                android:background="@drawable/bg_primary_button"
+                android:text="Guardar estabelecimento"
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="Criar prémio"
+                android:textColor="@color/sabor_black_soft"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/etTituloPremio"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_search_field"
+                android:hint="Título do prémio"
+                android:paddingHorizontal="14dp" />
+
+            <EditText
+                android:id="@+id/etDescricaoPremio"
+                android:layout_width="match_parent"
+                android:layout_height="86dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_search_field"
+                android:gravity="top"
+                android:hint="Descrição do prémio"
+                android:inputType="textMultiLine"
+                android:padding="14dp" />
+
+            <Button
+                android:id="@+id/btnCriarPremio"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_primary_button"
+                android:text="Adicionar prémio"
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvPremiosAdmin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:nestedScrollingEnabled="false" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="Resgates e uso"
+                android:textColor="@color/sabor_black_soft"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvResgatesAdmin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:nestedScrollingEnabled="false" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="Comentários pendentes"
+                android:textColor="@color/sabor_black_soft"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvComentariosPendentes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:nestedScrollingEnabled="false" />
+        </LinearLayout>
 
         <Button
             android:id="@+id/btnValidacaoMaster"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginTop="12dp"
+            android:layout_height="54dp"
+            android:layout_marginTop="16dp"
             android:background="@drawable/bg_primary_button"
-            android:fontFamily="sans-serif-medium"
             android:text="Validação master"
             android:textAllCaps="false"
             android:textColor="@color/white"
@@ -125,10 +401,9 @@
         <Button
             android:id="@+id/btnSair"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="54dp"
             android:layout_marginTop="12dp"
             android:background="@drawable/bg_outline_button"
-            android:fontFamily="sans-serif-medium"
             android:text="Sair da conta"
             android:textAllCaps="false"
             android:textColor="@color/sabor_green" />

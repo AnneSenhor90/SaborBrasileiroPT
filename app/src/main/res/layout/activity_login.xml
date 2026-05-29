@@ -14,21 +14,12 @@
         android:gravity="center">
 
         <ImageView
-            android:layout_width="96dp"
-            android:layout_height="96dp"
-            android:layout_marginBottom="24dp"
+            android:layout_width="240dp"
+            android:layout_height="240dp"
+            android:layout_marginBottom="16dp"
             android:contentDescription="@string/app_name"
-            android:src="@drawable/ic_sabor_pin_fork" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-medium"
-            android:text="Sabor Brasileiro PT"
-            android:textColor="@color/sabor_green"
-            android:textSize="26sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="24dp" />
+            android:src="@drawable/logo_sabor_brasileiro"
+            android:scaleType="fitCenter" />
 
         <LinearLayout
             android:layout_width="match_parent"
