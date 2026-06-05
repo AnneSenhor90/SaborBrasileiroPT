@@ -78,6 +78,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_outline_button"
+                android:backgroundTint="@color/white"
                 android:text="Excluir"
                 android:textAllCaps="false"
                 android:textColor="@color/sabor_green" />

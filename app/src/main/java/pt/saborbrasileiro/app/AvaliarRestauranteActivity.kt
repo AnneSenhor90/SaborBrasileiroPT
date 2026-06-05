@@ -6,12 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -49,6 +51,7 @@ class AvaliarRestauranteActivity : AppCompatActivity() {
         }
 
         findViewById<TextView>(R.id.tvRestauranteAvaliar).text = restauranteNome.ifBlank { "Restaurante" }
+        carregarDetalhesRestaurante(restauranteId, restauranteNome)
 
         val ratingRestaurante = findViewById<RatingBar>(R.id.ratingRestaurante)
         val etComentario = findViewById<EditText>(R.id.etComentarioAvaliacao)
@@ -99,6 +102,48 @@ class AvaliarRestauranteActivity : AppCompatActivity() {
                     )
                 }
         }
+    }
+
+    private fun carregarDetalhesRestaurante(restauranteId: String, restauranteNomeFallback: String) {
+        db.collection("restaurantes").document(restauranteId).get()
+            .addOnSuccessListener { documento ->
+                val restaurante = documento.toObject(Restaurante::class.java)
+                if (restaurante == null) {
+                    findViewById<TextView>(R.id.tvRestauranteAvaliar).text =
+                        restauranteNomeFallback.ifBlank { "Restaurante" }
+                    return@addOnSuccessListener
+                }
+
+                findViewById<TextView>(R.id.tvRestauranteAvaliar).text = restaurante.nome
+                findViewById<TextView>(R.id.tvCategoriaDetalhe).text =
+                    restaurante.categoria.ifBlank { "Brasileira" }
+                findViewById<TextView>(R.id.tvMoradaDetalhe).text = when {
+                    restaurante.morada.isNotBlank() -> restaurante.morada
+                    restaurante.cidade.isNotBlank() -> restaurante.cidade
+                    else -> "Localidade por confirmar"
+                }
+                findViewById<TextView>(R.id.tvContactoDetalhe).text =
+                    restaurante.contacto.ifBlank { "Contacto por confirmar" }
+                findViewById<TextView>(R.id.tvDescricaoDetalhe).text =
+                    restaurante.descricao.ifBlank { "Sabores brasileiros perto de si." }
+
+                val erroImagem = if (restaurante.nome.contains("Maria Pitanga", ignoreCase = true)) {
+                    R.drawable.logo_maria_pitanga
+                } else {
+                    R.drawable.ic_sabor_pin_fork
+                }
+
+                Glide.with(this)
+                    .load(restaurante.imagemUrl.takeIf { it.isNotBlank() })
+                    .placeholder(R.drawable.bg_food_placeholder)
+                    .error(erroImagem)
+                    .centerCrop()
+                    .into(findViewById<ImageView>(R.id.ivRestauranteDetalhe))
+            }
+            .addOnFailureListener {
+                findViewById<TextView>(R.id.tvRestauranteAvaliar).text =
+                    restauranteNomeFallback.ifBlank { "Restaurante" }
+            }
     }
 
     private fun escutarComentarios(restauranteId: String) {

@@ -41,6 +41,7 @@
             android:layout_height="46dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/bg_outline_button"
+            android:backgroundTint="@color/white"
             android:text="Marcar como usado"
             android:textAllCaps="false"
             android:textColor="@color/sabor_green" />

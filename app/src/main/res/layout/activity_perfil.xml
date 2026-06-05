@@ -23,7 +23,7 @@
                 android:id="@+id/btnVoltar"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
+                android:background="@drawable/bg_icon_button_light"
                 android:contentDescription="Voltar"
                 android:src="@drawable/ic_arrow_back" />
 
@@ -157,10 +157,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="54dp"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/bg_outline_button"
+                android:background="@drawable/bg_primary_button"
+                android:backgroundTint="@color/sabor_green"
                 android:text="Alterar senha por e-mail"
                 android:textAllCaps="false"
-                android:textColor="@color/sabor_green" />
+                android:textColor="@color/white" />
         </LinearLayout>
 
         <LinearLayout
@@ -213,10 +214,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/bg_outline_button"
+                android:background="@drawable/bg_primary_button"
+                android:backgroundTint="@color/sabor_green"
                 android:text="Solicitar apagamento dos dados"
                 android:textAllCaps="false"
-                android:textColor="@color/sabor_green" />
+                android:textColor="@color/white" />
         </LinearLayout>
 
         <LinearLayout
@@ -403,9 +405,9 @@
             android:layout_width="match_parent"
             android:layout_height="54dp"
             android:layout_marginTop="12dp"
-            android:background="@drawable/bg_outline_button"
+            android:background="@drawable/bg_primary_button"
             android:text="Sair da conta"
             android:textAllCaps="false"
-            android:textColor="@color/sabor_green" />
+            android:textColor="@color/white" />
     </LinearLayout>
 </ScrollView>

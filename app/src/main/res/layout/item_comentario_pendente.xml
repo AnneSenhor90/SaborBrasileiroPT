@@ -59,6 +59,7 @@
                 android:layout_marginHorizontal="4dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_outline_button"
+                android:backgroundTint="@color/white"
                 android:text="Reprovar"
                 android:textAllCaps="false"
                 android:textColor="@color/sabor_green" />
@@ -70,6 +71,7 @@
                 android:layout_marginStart="4dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_outline_button"
+                android:backgroundTint="@color/white"
                 android:text="Maldoso"
                 android:textAllCaps="false"
                 android:textColor="@color/rating_weak" />

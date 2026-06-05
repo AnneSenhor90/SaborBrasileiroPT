@@ -43,7 +43,9 @@ class AdicionarRestauranteActivity : AppCompatActivity() {
 
         val nome = findViewById<EditText>(R.id.etNomeRestaurante).text.toString().trim()
         val cidade = findViewById<EditText>(R.id.etCidadeRestaurante).text.toString().trim()
+        val morada = findViewById<EditText>(R.id.etMoradaRestaurante).text.toString().trim()
         val categoria = findViewById<EditText>(R.id.etCategoriaRestaurante).text.toString().trim()
+        val contacto = findViewById<EditText>(R.id.etContactoRestaurante).text.toString().trim()
         val urlFoto = findViewById<EditText>(R.id.etLinkImagem).text.toString().trim()
         val descricao = findViewById<EditText>(R.id.etDescricaoRestaurante).text.toString().trim()
 
@@ -66,7 +68,8 @@ class AdicionarRestauranteActivity : AppCompatActivity() {
             imagemUrl = urlFoto,
             latitude = 0.0,
             longitude = 0.0,
-            contacto = "",
+            contacto = contacto,
+            morada = morada,
             estado = if (publicarDireto) "aprovado" else "pendente",
             criadoPorUid = utilizadorAtual.uid,
             criadoPorTipo = tipoAcessoAtual,
@@ -95,6 +98,12 @@ class AdicionarRestauranteActivity : AppCompatActivity() {
         db.collection("utilizadores").document(uid).get()
             .addOnSuccessListener { documento ->
                 tipoAcessoAtual = documento.getString("tipoAcesso") ?: TiposAcesso.UTILIZADOR
+                findViewById<Button>(R.id.btnSalvarRestaurante).text =
+                    if (tipoAcessoAtual == TiposAcesso.ADMIN_MASTER) {
+                        "Publicar restaurante"
+                    } else {
+                        "Enviar para validação"
+                    }
             }
     }
 }

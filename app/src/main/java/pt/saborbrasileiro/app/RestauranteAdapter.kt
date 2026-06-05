@@ -75,6 +75,9 @@ class RestauranteAdapter(
         holder.btnAvaliar.setOnClickListener {
             aoClicarAvaliar(restaurante)
         }
+        holder.itemView.setOnClickListener {
+            aoClicarAvaliar(restaurante)
+        }
     }
 
     // 3. Diz ao Android quantos itens a nossa lista tem no total
