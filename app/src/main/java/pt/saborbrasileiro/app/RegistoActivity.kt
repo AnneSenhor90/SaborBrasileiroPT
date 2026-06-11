@@ -56,45 +56,44 @@ class RegistoActivity : AppCompatActivity() {
             }
 
             if (!cbRgpd.isChecked) {
-                Toast.makeText(this, "Para criar conta, precisa aceitar a regra RGPD de utilização dos dados.", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    this,
+                    "Para criar conta, precisa aceitar a regra RGPD de utilização dos dados.",
+                    Toast.LENGTH_LONG
+                ).show()
                 return@setOnClickListener
             }
 
-            // 1. Criar o utilizador no Firebase Authentication
             auth.createUserWithEmailAndPassword(email, senha)
                 .addOnCompleteListener(this) { tarefa ->
-                    if (tarefa.isSuccessful) {
-                        val uid = auth.currentUser?.uid ?: ""
-
-                        // 2. Criar o objeto Utilizador para guardar no Firestore
-                        val novoUtilizador = Utilizador(
-                            id = uid,
-                            nome = nome,
-                            email = email,
-                            tipoAcesso = TiposAcesso.tipoParaEmail(email, tipoEscolhido),
-                            rgpdAceite = true,
-                            rgpdVersao = "rgpd-v1-2026-05-29",
-                            rgpdDataAceite = Date(),
-                            favoritos = emptyList()
-                        )
-
-                        // 3. Guardar no Firestore na coleção "utilizadores"
-                        db.collection("utilizadores").document(uid)
-                            .set(novoUtilizador)
-                            .addOnSuccessListener {
-                                Toast.makeText(this, "Conta criada com sucesso!", Toast.LENGTH_SHORT).show()
-                                // Redirecionar para a Home
-                                val intent = Intent(this, MainActivity::class.java)
-                                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                                startActivity(intent)
-                            }
-                            .addOnFailureListener { e ->
-                                Toast.makeText(this, "Erro ao guardar dados: ${e.message}", Toast.LENGTH_LONG).show()
-                            }
-
-                    } else {
+                    if (!tarefa.isSuccessful) {
                         Toast.makeText(this, "Erro no registo: ${tarefa.exception?.message}", Toast.LENGTH_LONG).show()
+                        return@addOnCompleteListener
                     }
+
+                    val uid = auth.currentUser?.uid.orEmpty()
+                    val novoUtilizador = Utilizador(
+                        id = uid,
+                        nome = nome,
+                        email = email,
+                        tipoAcesso = TiposAcesso.tipoParaEmail(email, tipoEscolhido),
+                        rgpdAceite = true,
+                        rgpdVersao = "rgpd-v1-2026-05-29",
+                        rgpdDataAceite = Date(),
+                        favoritos = emptyList()
+                    )
+
+                    db.collection("utilizadores").document(uid)
+                        .set(novoUtilizador)
+                        .addOnSuccessListener {
+                            Toast.makeText(this, "Conta criada com sucesso!", Toast.LENGTH_SHORT).show()
+                            val intent = Intent(this, MainActivity::class.java)
+                            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                            startActivity(intent)
+                        }
+                        .addOnFailureListener { erro ->
+                            Toast.makeText(this, "Erro ao guardar dados: ${erro.message}", Toast.LENGTH_LONG).show()
+                        }
                 }
         }
     }

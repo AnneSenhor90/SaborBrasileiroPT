@@ -64,6 +64,9 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore")
     implementation("com.google.firebase:firebase-storage")
 
+    // Login com conta Google
+    implementation("com.google.android.gms:play-services-auth:21.4.0")
+
     // Carregamento de imagens dos restaurantes por URL
     implementation("com.github.bumptech.glide:glide:4.16.0")
 }

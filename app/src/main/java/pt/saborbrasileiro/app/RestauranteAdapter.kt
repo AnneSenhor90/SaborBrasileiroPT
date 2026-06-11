@@ -11,21 +11,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import java.util.Locale
 
-// O Adapter recebe a lista de restaurantes que vamos puxar do Firestore
 class RestauranteAdapter(
     private val listaRestaurantes: List<Restaurante>,
-    private val aoClicarAvaliar: (Restaurante) -> Unit
-) :
-    RecyclerView.Adapter<RestauranteAdapter.RestauranteViewHolder>() {
+    private val aoAbrirDetalhes: (Restaurante) -> Unit
+) : RecyclerView.Adapter<RestauranteAdapter.RestauranteViewHolder>() {
 
-    // 1. Este método cria o "molde" visual de cada linha da lista (infla o XML)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RestauranteViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_restaurante, parent, false)
         return RestauranteViewHolder(view)
     }
 
-    // 2. Este método junta os dados do restaurante real com os componentes do ecrã
     override fun onBindViewHolder(holder: RestauranteViewHolder, position: Int) {
         val restaurante = listaRestaurantes[position]
         val context = holder.itemView.context
@@ -33,7 +29,7 @@ class RestauranteAdapter(
         holder.tvNome.text = restaurante.nome
         holder.tvCidade.text = restaurante.cidade.ifBlank { "Portugal" }
         holder.tvCategoria.text = restaurante.categoria.ifBlank { "Brasileira" }
-        holder.tvDescricao.text = restaurante.descricao.ifBlank { "Sabores Brasileiros perto de si." }
+        holder.tvDescricao.text = restaurante.descricao.ifBlank { "Sabores brasileiros perto de si." }
 
         val avaliacao = restaurante.avaliacaoMedia
         holder.tvAvaliacao.text = if (avaliacao > 0.0) {
@@ -65,6 +61,7 @@ class RestauranteAdapter(
         } else {
             R.drawable.ic_sabor_pin_fork
         }
+
         Glide.with(context)
             .load(restaurante.imagemUrl.takeIf { it.isNotBlank() })
             .placeholder(R.drawable.bg_food_placeholder)
@@ -72,23 +69,15 @@ class RestauranteAdapter(
             .centerCrop()
             .into(holder.ivRestaurante)
 
-        holder.btnAvaliar.setOnClickListener {
-            aoClicarAvaliar(restaurante)
-        }
-        holder.itemView.setOnClickListener {
-            aoClicarAvaliar(restaurante)
-        }
+        holder.btnDetalhes.setOnClickListener { aoAbrirDetalhes(restaurante) }
+        holder.itemView.setOnClickListener { aoAbrirDetalhes(restaurante) }
     }
 
-    // 3. Diz ao Android quantos itens a nossa lista tem no total
-    override fun getItemCount(): Int {
-        return listaRestaurantes.size
-    }
+    override fun getItemCount(): Int = listaRestaurantes.size
 
-    // A classe ViewHolder "encontra" os IDs do XML de cada linha para podermos usar acima
     class RestauranteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val ivRestaurante: ImageView = itemView.findViewById(R.id.ivRestauranteItem)
-        val btnAvaliar: View = itemView.findViewById(R.id.btnAvaliarItem)
+        val btnDetalhes: View = itemView.findViewById(R.id.btnAvaliarItem)
         val tvNome: TextView = itemView.findViewById(R.id.tvNomeItem)
         val tvCidade: TextView = itemView.findViewById(R.id.tvCidadeItem)
         val tvCategoria: TextView = itemView.findViewById(R.id.tvCategoriaItem)

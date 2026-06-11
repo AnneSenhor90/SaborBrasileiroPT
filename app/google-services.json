@@ -12,7 +12,20 @@
           "package_name": "pt.saborbrasileiro.app"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "441141120754-402v5jo9ddgorq3iq5o36avklttm9jv3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "pt.saborbrasileiro.app",
+            "certificate_hash": "ebec7c27a3e23ca87f32c5f554d8b5910e5afd90"
+          }
+        },
+        {
+          "client_id": "441141120754-hqq3s0a64ooic5h9srv24b9541q3h3jc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAU9BsTUtiBviJSgn1xy3PPYsSK4itwWcQ"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "441141120754-hqq3s0a64ooic5h9srv24b9541q3h3jc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
