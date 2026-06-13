@@ -22,5 +22,6 @@ data class Restaurante(
     val criadoPorTipo: String = "",
     val aprovadoPorUid: String = "",
     val dataAprovacao: Date? = null,
-    val dataCriacao: Date = Date()
+    val dataCriacao: Date = Date(),
+    val dataAtualizacao: Date? = null
 )

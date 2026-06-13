@@ -148,7 +148,11 @@ class MainActivity : AppCompatActivity() {
                     for (documento in snapshot.documents) {
                         val restaurante = documento.toObject(Restaurante::class.java)
                         if (restaurante != null) {
-                            listaRestaurantes.add(restaurante)
+                            listaRestaurantes.add(
+                                restaurante.copy(
+                                    id = restaurante.id.ifBlank { documento.id }
+                                )
+                            )
                         }
                     }
 

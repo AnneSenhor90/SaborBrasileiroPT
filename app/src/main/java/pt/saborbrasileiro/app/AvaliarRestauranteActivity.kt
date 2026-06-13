@@ -107,12 +107,15 @@ class AvaliarRestauranteActivity : AppCompatActivity() {
     private fun carregarDetalhesRestaurante(restauranteId: String, restauranteNomeFallback: String) {
         db.collection("restaurantes").document(restauranteId).get()
             .addOnSuccessListener { documento ->
-                val restaurante = documento.toObject(Restaurante::class.java)
-                if (restaurante == null) {
+                val restauranteFirestore = documento.toObject(Restaurante::class.java)
+                if (restauranteFirestore == null) {
                     findViewById<TextView>(R.id.tvRestauranteAvaliar).text =
                         restauranteNomeFallback.ifBlank { "Restaurante" }
                     return@addOnSuccessListener
                 }
+                val restaurante = restauranteFirestore.copy(
+                    id = restauranteFirestore.id.ifBlank { documento.id }
+                )
 
                 findViewById<TextView>(R.id.tvRestauranteAvaliar).text = restaurante.nome
                 findViewById<TextView>(R.id.tvCategoriaDetalhe).text =
